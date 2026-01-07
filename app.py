@@ -5,7 +5,6 @@ import gradio as gr
 from dotenv import load_dotenv
 from openai import OpenAI
 from scraper import fetch_website_contents
-from IPython.display import display, Markdown
 
 # Load environment variables, and Api key setup
 load_dotenv(override=True)
@@ -23,13 +22,32 @@ else:
 base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
 gemini=OpenAI(base_url=base_url, api_key=google_key)
 
+# Function to create messages for the Gemini model
 def get_messages(url):
     system_prompt=("You are a helpful assistant that summarizes website content into concise bullet points."
-                  "You also generates a list of relevant links such as About, Careers, and Product or Service pages"
+                  "You also generate a list of relevant links such as About, Careers, and Product or Service pages"
                   "if available.")
     website_contents=fetch_website_contents(url)
-    user_prompt="This is the content of the website I want you to summarize into concise bullet points: {website_contents}"
-    return [{"system": system_prompt}, {"user": user_prompt}]
+    user_prompt=f"This is the content of the website I want you to summarize into concise bullet points: {website_contents}"
+    return [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}]
+
+# Function to stream Gemini model responses
+def stream_gemini(url):
+    messages=get_messages(url)
+    stream=gemini.chat.completions.create(messages=messages, model="gemini-3-flash", stream=True)
+    result=""
+    for chunk in stream:
+        result+=chunk.choices[0].delta.content or ""
+        yield result
+
+# Gradio interface setup
+message_input=gr.Textbox(label="Enter Website URL")
+message_output=gr.Markdown(label="Summary")
+view=gr.Interface(fn=stream_gemini, inputs=[message_input], outputs=[message_output],
+                  title="WebBriefAI", example=["https://huggingface.co"], auth=("Krish", "0801"),flagging_mode="never")
+view.launch()
+
+
 
 
 
