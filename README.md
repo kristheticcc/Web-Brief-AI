@@ -1,6 +1,18 @@
 # WebBriefAI 🚀
 
 **WebBriefAI** is an AI-powered web orchestration tool that transforms complex URLs into concise, actionable summaries. By combining custom web scraping with the latest **Gemini 2.5 Flash-Lite** model, it provides a high-speed, streaming interface for rapid information synthesis.
+## 🔗 Live Application Demo
+Check out the live application here: [WebBriefAI Live Demo](https://huggingface.co/spaces/krishMakwana-0801/WebBriefAI)
+
+## 🔒 Demo Access
+To use the application, please log in with the following credentials:
+- **Username:** Krish
+- **Password:** 0801)**
+
+## 🔒 Demo Access
+To use the application, please log in with the following credentials:
+- **Username:** Krish
+- **Password:** 0801
 
 ## 🌟 Key Features
 - **Intelligent Scraping:** Utilizes `BeautifulSoup4` to strip noise (scripts, CSS, ads) and extract core text content.

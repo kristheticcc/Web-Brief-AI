@@ -44,7 +44,8 @@ def stream_gemini(url):
 message_input=gr.Textbox(label="Enter Website URL")
 message_output=gr.Markdown(label="Summary")
 view=gr.Interface(fn=stream_gemini, inputs=[message_input], outputs=[message_output],
-                  title="WebBriefAI", examples=["https://huggingface.co"],
+                  title="WebBriefAI", examples=["https://en.wikipedia.org/wiki/Tyrannosaurus"],
+                  cache_examples=False,
                   flagging_mode="never")
 
 
