@@ -21,7 +21,7 @@ else:
 # Setting up the client
 base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
 gemini=OpenAI(base_url=base_url, api_key=google_key)
-model="gemini-3-flash"
+model="gemini-2.5-flash-lite"
 
 # Function to create messages for the Gemini model
 def get_messages(url):
@@ -44,8 +44,13 @@ def stream_gemini(url):
 message_input=gr.Textbox(label="Enter Website URL")
 message_output=gr.Markdown(label="Summary")
 view=gr.Interface(fn=stream_gemini, inputs=[message_input], outputs=[message_output],
-                  title="WebBriefAI", example=["https://huggingface.co"], auth=("Krish", "0801"),flagging_mode="never")
-view.launch()
+                  title="WebBriefAI", examples=["https://huggingface.co"],
+                  flagging_mode="never")
+
+
+# Entry point for the application
+if __name__ == "__main__":
+    view.launch(auth=("Krish", "0801"))
 
 
 
