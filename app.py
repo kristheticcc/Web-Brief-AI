@@ -21,20 +21,20 @@ else:
 # Setting up the client
 base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
 gemini=OpenAI(base_url=base_url, api_key=google_key)
+model="gemini-3-flash"
 
 # Function to create messages for the Gemini model
 def get_messages(url):
     system_prompt=("You are a helpful assistant that summarizes website content into concise bullet points."
-                  "You also generate a list of relevant links such as About, Careers, and Product or Service pages"
-                  "if available.")
+                  "Include relevant links like About, Careers, and Products if found.")
     website_contents=fetch_website_contents(url)
-    user_prompt=f"This is the content of the website I want you to summarize into concise bullet points: {website_contents}"
+    user_prompt=f"This is the content of the website {website_contents}, summarize into concise bullet points"
     return [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}]
 
 # Function to stream Gemini model responses
 def stream_gemini(url):
     messages=get_messages(url)
-    stream=gemini.chat.completions.create(messages=messages, model="gemini-3-flash", stream=True)
+    stream=gemini.chat.completions.create(messages=messages, model=model, stream=True)
     result=""
     for chunk in stream:
         result+=chunk.choices[0].delta.content or ""
