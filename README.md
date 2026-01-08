@@ -7,12 +7,8 @@ Check out the live application here: [WebBriefAI Live Demo](https://huggingface.
 ## 🔒 Demo Access
 To use the application, please log in with the following credentials:
 - **Username:** Krish
-- **Password:** 0801)**
-
-## 🔒 Demo Access
-To use the application, please log in with the following credentials:
-- **Username:** Krish
 - **Password:** 0801
+
 
 ## 🌟 Key Features
 - **Intelligent Scraping:** Utilizes `BeautifulSoup4` to strip noise (scripts, CSS, ads) and extract core text content.
